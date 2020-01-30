@@ -1,0 +1,10 @@
+local pb = require 'pb'
+local protoc = require "protoc"
+
+print("test a a ")
+
+local protoStr = CS.XLuaTest.ProtoTest.protoStr --用自己的资源系统加载文本格式文件
+print(protoStr)
+
+protoc:load(protoStr)
+print("1", pb.type "tutorial.Person")

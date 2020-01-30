@@ -1,0 +1,72 @@
+
+
+LoginPanel = {};
+local this = LoginPanel;
+
+local transform;
+local gameObject;
+
+local usernameInputField;
+local passwordInputField;
+local confirmButton;
+local closeButton;
+
+--构建函数--
+function LoginPanel.New()
+	print("LoginPanel.New--->>");
+	return this;
+end
+
+function LoginPanel.Awake()
+	print("LoginPanel.Awake--->>");
+
+	CS.PanelManager.Instance:CreatePanel("LoginPanel", this.OnCreate);
+	--CS.PanelManager.Instance:CreatePanel("LoginPanel");
+end
+
+--启动事件--
+function LoginPanel.OnCreate(obj)
+	gameObject = obj;
+	transform = obj.transform;
+
+	usernameInputField = transform:GetChild(0):GetComponent(typeof(CS.UnityEngine.UI.InputField));
+	passwordInputField = transform:GetChild(1):GetComponent(typeof(CS.UnityEngine.UI.InputField));
+	confirmButton = transform:GetChild(2):GetComponent(typeof(CS.UnityEngine.UI.Button));
+	closeButton = transform:GetChild(3):GetComponent(typeof(CS.UnityEngine.UI.Button));
+	--print("Bind: "..usernameInputField.name);
+	--print("Bind: "..passwordInputField.name);
+	--print("Bind: "..confirmButton.name);
+	
+	usernameInputField.onValueChanged:AddListener(OnInputChanged)
+	confirmButton.onClick:AddListener(OnButtonClick);
+	closeButton.onClick:AddListener(this.Close);
+end
+
+function start()
+	print("LoginPanel.start()");
+end
+
+function update()
+
+end
+
+function ondestroy()
+
+end
+
+
+--自定义函数--
+
+function OnInputChanged(value)
+	print("input.."..value);
+end
+
+function OnButtonClick()
+	print("click..");
+end
+
+--关闭事件--
+function LoginPanel.Close()
+	print("LoginPanel.Close()");
+	CS.PanelManager.Instance:ClosePanel("LoginPanel");
+end

@@ -1,0 +1,6 @@
+LuaA = {};
+local this = LuaA;
+
+print("this is LuaA..");
+
+return LuaA;

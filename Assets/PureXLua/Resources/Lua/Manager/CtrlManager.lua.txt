@@ -1,0 +1,47 @@
+local login = require 'Lua.UI.LoginPanel'
+
+CtrlManager = {};
+local this = CtrlManager;
+local ctrlList = {};	--¿ØÖÆÆ÷ÁĞ±í--
+
+
+--panelMgr = LuaHelper.GetPanelManager();
+
+
+function CtrlManager.Init()
+	print("CtrlManager.Init----->>>");
+
+	ctrlList["LoginPanel"] = LoginPanel.New();
+
+	--[[
+	local count = 0;
+	for k,v in pairs(ctrlList) do
+		count = count + 1;
+		print(count ..": ".. k);
+	end
+	--]]
+
+	return this;
+end
+
+--Ìí¼Ó¿ØÖÆÆ÷--
+function CtrlManager.AddCtrl(ctrlName, ctrlObj)
+	ctrlList[ctrlName] = ctrlObj;
+end
+
+--»ñÈ¡¿ØÖÆÆ÷--
+function CtrlManager.GetCtrl(ctrlName)
+	return ctrlList[ctrlName];
+end
+
+--ÒÆ³ı¿ØÖÆÆ÷--
+function CtrlManager.RemoveCtrl(ctrlName)
+	ctrlList[ctrlName] = nil;
+end
+
+--¹Ø±Õ¿ØÖÆÆ÷--
+function CtrlManager.Close()
+	print('CtrlManager.Close---->>>');
+end
+
+--return CtrlManager;

@@ -1,0 +1,32 @@
+local json123 = require("Lua.3rd.json");
+
+WWWLua = {};
+local this = WWWLua;
+
+local co = coroutine.create(function()
+    local www = CS.UnityEngine.WWW("http://192.168.1.101/download/present.json");
+    while (www.isDone == false) do
+    end
+    if(www.error ~= nil) then
+        --print(www.error);
+        return www.error;
+    else
+        --print(www.text);
+        return www.text;
+    end
+end)
+
+--function WWWGet()
+function WWWLua.WWWGet()
+    coStatue, coResult = coroutine.resume(co);
+    --print("result: " .. coResult);
+
+    web = { server="", web="", ab_url="", version="", notice="" }
+
+    testTab = json123.decode(coResult);
+
+    for k,v in pairs(testTab) do
+        print(k..": "..v)
+    end
+    print("end.....");
+end

@@ -1,0 +1,37 @@
+local pb = require "pb"
+local protoc = require "protoc"
+
+
+local protoStr = CS.GameManager.luacode --用自己的资源系统加载文本格式文件
+protoc:load(protoStr)
+print("1", pb.type "tutorial.Person")
+
+
+protoc:load
+[[
+	syntax = "proto3";
+	package protest2;
+	message SearchRequest {
+		string query = 1;
+		string result_per_page = 2;
+	}
+]]
+print("1", pb.type "protest2.SearchRequest")
+print("2", pb.clear "protest2.SearchRequest")
+print("3", pb.type "protest2.SearchRequest")
+
+
+
+local student = {
+	name="jack",
+	id=3,
+	email="123456"
+}
+
+-- 序列化
+local bytes = assert(pb.encode("tutorial.Person", student))
+print(pb.tohex(bytes))
+
+-- 反序列化
+local recvData = assert(pb.decode("tutorial.Person", bytes))
+print(recvData.name)
