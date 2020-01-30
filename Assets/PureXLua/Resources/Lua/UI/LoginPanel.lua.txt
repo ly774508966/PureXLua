@@ -13,15 +13,11 @@ local closeButton;
 
 --构建函数--
 function LoginPanel.New()
-	print("LoginPanel.New--->>");
 	return this;
 end
 
 function LoginPanel.Awake()
-	print("LoginPanel.Awake--->>");
-
 	CS.PanelManager.Instance:CreatePanel("LoginPanel", this.OnCreate);
-	--CS.PanelManager.Instance:CreatePanel("LoginPanel");
 end
 
 --启动事件--
@@ -62,7 +58,7 @@ function OnInputChanged(value)
 end
 
 function OnButtonClick()
-	print("click..");
+	print("click.." .. usernameInputField.text);
 end
 
 --关闭事件--

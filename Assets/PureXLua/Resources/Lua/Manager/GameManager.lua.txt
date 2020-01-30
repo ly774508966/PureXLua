@@ -1,10 +1,4 @@
 local ctrl = require ("Lua.Manager.CtrlManager");
---local wwwlua = require ("Lua.Manager.WWWLua");
---wwwlua:WWWGet
-
-local zhttp = require "resty.http"
-
-
 
 GameManager = {};
 local this = GameManager;
@@ -14,3 +8,6 @@ CtrlManager.Init();
 
 local login = CtrlManager.GetCtrl("LoginPanel");
 login.Awake();
+
+--local wwwlua = require ("Lua.Manager.WWWLua");
+--wwwlua:WWWGet

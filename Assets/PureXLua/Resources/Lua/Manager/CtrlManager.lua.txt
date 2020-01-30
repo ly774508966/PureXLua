@@ -4,23 +4,11 @@ CtrlManager = {};
 local this = CtrlManager;
 local ctrlList = {};	--¿ØÖÆÆ÷ÁĞ±í--
 
-
 --panelMgr = LuaHelper.GetPanelManager();
 
-
 function CtrlManager.Init()
-	print("CtrlManager.Init----->>>");
-
+	--print("CtrlManager.Init----->>>");
 	ctrlList["LoginPanel"] = LoginPanel.New();
-
-	--[[
-	local count = 0;
-	for k,v in pairs(ctrlList) do
-		count = count + 1;
-		print(count ..": ".. k);
-	end
-	--]]
-
 	return this;
 end
 
@@ -44,4 +32,4 @@ function CtrlManager.Close()
 	print('CtrlManager.Close---->>>');
 end
 
---return CtrlManager;
+return CtrlManager;

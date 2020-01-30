@@ -16,27 +16,18 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        //Init();
+        Init();
+
+        //luaEnv.AddLoader(MyLoader);
 
         //luaEnv.DoString("require 'Lua/LuaA'"); //必须跟路径
         //luaEnv.DoString("require 'Lua.LuaA'"); //或用.的方式
 
-        luaEnv.AddBuildin("rapidjson", XLua.LuaDLL.Lua.LoadRapidJson);
-        luaEnv.DoString("require 'rapidjson'");
-
-        //luaEnv.AddBuildin("pb", XLua.LuaDLL.Lua.LoadPb);  //自定义扩展
-        luaEnv.AddBuildin("pb", XLua.LuaDLL.Lua.LoadPb);
-        luaEnv.DoString("require 'protobufmain'");
-    }
-
-    public static string luacode
-    {
-        get 
-        {
-            string code = string.Empty;
-            code = Resources.Load<TextAsset>("addressbook.proto").text;
-            return code;
-        }
+        //第三方库
+        //luaEnv.AddBuildin("rapidjson", XLua.LuaDLL.Lua.LoadRapidJson);
+        //luaEnv.DoString("require 'rapidjson'");
+        //luaEnv.AddBuildin("pb", XLua.LuaDLL.Lua.LoadPb);
+        //luaEnv.DoString("require 'protobufmain'");
     }
 
     private void Init()
@@ -61,18 +52,23 @@ public class GameManager : MonoBehaviour
     // 更新完成后
     void OnResourceInited()
     {
-        //luaEnv.AddLoader(MyLoader);
-
         var gameManagerLua = Resources.Load<TextAsset>("Lua/Manager/GameManager.lua");
         luaEnv.DoString(gameManagerLua.text); //控制权交给Lua
     }
 
+    #region 测试代码
+
+    public static string luacode
+    {
+        get { return Resources.Load<TextAsset>("addressbook.proto").text; }
+    }
+
     public byte[] MyLoader(ref string filepath)
     {
-        //2.streamingAssets下的lua文件加载
-        //string path = Application.streamingAssetsPath + "/" + filepath + ".lua.txt";
-        string path = Application.dataPath + "/Resources";
-        //lua中代码文本转换字节数组
+        //streamingAssets作为lua加载路径
+        string path = Path.Combine(Application.streamingAssetsPath, filepath + ".lua.txt");
         return System.Text.Encoding.UTF8.GetBytes(File.ReadAllText(path));
     }
+
+    #endregion
 }
