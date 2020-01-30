@@ -37,13 +37,14 @@ public class NetworkManager
     }
 
     //Send方法
-    public static void Send(byte[] data)
+    public static void SendBytes(byte[] data)
     {
         Debug.Log("C2S：" + data.Length);
         clientSocket.Send(data);
     }
     public static void Send(string msg)
     {
+        Debug.Log("来自Lua层：" + msg);
         byte[] data = System.Text.Encoding.UTF8.GetBytes(msg);
         clientSocket.Send(data);
     }

@@ -12,11 +12,6 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         Instance = this;
-    }
-
-    void Start()
-    {
-        Init();
 
         //luaEnv.AddLoader(MyLoader);
 
@@ -26,17 +21,22 @@ public class GameManager : MonoBehaviour
         //第三方库
         //luaEnv.AddBuildin("rapidjson", XLua.LuaDLL.Lua.LoadRapidJson);
         //luaEnv.DoString("require 'rapidjson'");
-        //luaEnv.AddBuildin("pb", XLua.LuaDLL.Lua.LoadPb);
-        //luaEnv.DoString("require 'protobufmain'");
+        luaEnv.AddBuildin("pb", XLua.LuaDLL.Lua.LoadPb);
+        //luaEnv.DoString("require 'protobuf_test'");
 
         //NetworkManager.Connect();
+    }
+
+    void Start()
+    {
+        Init();
     }
 
     [ContextMenu("TestSend")]
     void TestSend()
     {
         byte[] bytes = System.Text.Encoding.UTF8.GetBytes("hello");
-        NetworkManager.Send(bytes);
+        NetworkManager.SendBytes(bytes);
     }
 
     void Update()

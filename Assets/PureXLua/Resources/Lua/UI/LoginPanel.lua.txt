@@ -1,4 +1,5 @@
-
+local pb = require 'pb'
+local protoc = require "protoc"
 
 LoginPanel = {};
 local this = LoginPanel;
@@ -69,11 +70,29 @@ function LoginPanel.Close()
 	CS.PanelManager.Instance:ClosePanel("LoginPanel");
 end
 
+
+person = {
+	name = "Alice",
+	id = 12345,
+	email = "alice@qq.com"
+}
+--加载类
+local protoStr = CS.XLuaTest.ProtoTest.protoStr --用自己的资源系统加载文本格式文件
+protoc:load(protoStr);
+local Person = pb.type "tutorial.Person";
+print(Person);
+
 --测试--
 function TestSend()
 
-	--string转byte[]
-    CS.NetworkManager.Send("world!");
-	--CS.NetworkManager:HHa();
+	--序列化
+	local code = pb.encode(Person, person);
+	print(code);
+
+	--反序列化
+	local person2 = pb.decode(Person, code);
+	print(person2.name .. ", " .. person2.id .. ", " .. person2.email);
+	
+    CS.NetworkManager.Send(code);
 
 end
