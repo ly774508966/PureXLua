@@ -1,0 +1,3 @@
+[submodule "Toolkit/build_xlua_with_libs"]
+	path = Toolkit/build_xlua_with_libs
+	url = https://github.com/chexiongsheng/build_xlua_with_libs

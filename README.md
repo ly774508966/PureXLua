@@ -26,4 +26,4 @@ Proto生成
 ## 参加资料
 
 - [XLua官方项目](https://github.com/Tencent/xLua)
-- []()
+- [submodule使用](https://blog.csdn.net/guotianqing/article/details/82391665)
