@@ -18,6 +18,11 @@ Proto生成
 
 引用build_xlua_with_libs，已集成rapidjson，pbc，lua-protobuf，等。
 
+VS2019编译修改bat
+```
+cmake -G "Visual Studio 16 2019" -A x64 ..
+```
+
 ## 增加Example
 
 14. 增加AddBuildin第三方插件调用示例；

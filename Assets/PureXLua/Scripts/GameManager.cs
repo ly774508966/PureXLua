@@ -28,6 +28,20 @@ public class GameManager : MonoBehaviour
         //luaEnv.DoString("require 'rapidjson'");
         //luaEnv.AddBuildin("pb", XLua.LuaDLL.Lua.LoadPb);
         //luaEnv.DoString("require 'protobufmain'");
+
+        //NetworkManager.Connect();
+    }
+
+    [ContextMenu("TestSend")]
+    void TestSend()
+    {
+        byte[] bytes = System.Text.Encoding.UTF8.GetBytes("hello");
+        NetworkManager.Send(bytes);
+    }
+
+    void Update()
+    {
+        NetworkManager.Update(Time.deltaTime);
     }
 
     private void Init()

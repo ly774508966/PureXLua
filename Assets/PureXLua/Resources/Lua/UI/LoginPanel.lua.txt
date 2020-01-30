@@ -40,6 +40,7 @@ end
 
 function start()
 	print("LoginPanel.start()");
+	CS.NetworkManager.Connect();
 end
 
 function update()
@@ -59,10 +60,20 @@ end
 
 function OnButtonClick()
 	print("click.." .. usernameInputField.text);
+	TestSend();
 end
 
 --关闭事件--
 function LoginPanel.Close()
 	print("LoginPanel.Close()");
 	CS.PanelManager.Instance:ClosePanel("LoginPanel");
+end
+
+--测试--
+function TestSend()
+
+	--string转byte[]
+    CS.NetworkManager.Send("world!");
+	--CS.NetworkManager:HHa();
+
 end

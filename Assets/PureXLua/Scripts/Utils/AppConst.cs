@@ -2,17 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AppConst : MonoBehaviour
+public class AppConst
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public static string ipAddress = "127.0.0.1";
+    public static int port = 7788;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
