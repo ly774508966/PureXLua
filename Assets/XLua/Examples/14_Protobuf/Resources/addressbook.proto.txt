@@ -1,4 +1,4 @@
-syntax = "proto2";  --当前只支持proto2
+syntax = "proto2";
 
 package tutorial;
 

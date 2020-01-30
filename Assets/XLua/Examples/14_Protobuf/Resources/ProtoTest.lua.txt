@@ -6,5 +6,21 @@ print("test a a ")
 local protoStr = CS.XLuaTest.ProtoTest.protoStr --用自己的资源系统加载文本格式文件
 print(protoStr)
 
-protoc:load(protoStr)
-print("1", pb.type "tutorial.Person")
+--加载类
+protoc:load(protoStr);
+local Person = pb.type "tutorial.Person";
+print("1", Person);
+
+person = {
+    name = "Alice",
+    id = 12345,
+    email = "alice@qq.com"
+}
+
+--序列化
+local code = pb.encode(Person, person);
+print(code);
+
+--反序列化
+local person2 = pb.decode(Person, code);
+print(person2.name .. ", " .. person2.id .. ", " .. person2.email);
