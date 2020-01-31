@@ -1,0 +1,26 @@
+print('how to use luasocket');
+
+local socket = require ("socket")
+local client = false;
+
+if not socket then
+    print("load socket module failed.")
+else
+    print("success load socket module.")
+    local host = "127.0.0.1"
+    local port = 8080
+    client = socket.connect(host, port)
+    if not client then
+        print("connect server failed.")
+    else
+        client:send("this is lua client!");        
+        client:settimeout(0);
+    end
+end
+
+function receive_message()
+    if client then
+        local recvstr, err = client:receive();
+        print("recvstr, err:", recvstr, err);
+    end
+end
