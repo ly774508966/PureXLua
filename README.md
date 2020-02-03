@@ -30,6 +30,7 @@ cmake -G "Visual Studio 16 2019" -A x64 ..
 16. LuaSocket使用；
 17. 单例模式；
 18. Lua中使用Ref/Out；
+19. Lua中使用射线；
 
 ## 参加资料
 

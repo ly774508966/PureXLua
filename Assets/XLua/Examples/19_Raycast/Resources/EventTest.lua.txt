@@ -1,0 +1,38 @@
+EventTest = {}
+local this = EventTest;
+
+local gameObject;
+local transform;
+local inputRay;  --鼠标位置
+local hitInfo;
+
+--TOLUA获取点击
+--http://doc.ulua.org/article/ulua/toluadeexamples14out.html
+--XLUA解决方案（没有占位符，不知道传入的参数类型）
+--http://www.manew.com/thread-142441-1-1.html
+--https://blog.csdn.net/qq_42047805/article/details/82784754
+
+function awake()
+	gameObject = self;
+	transform = self.transform;
+end
+
+function start()
+end
+
+function update()
+	inputRay = CS.UnityEngine.Camera.main:ScreenPointToRay(CS.UnityEngine.Input.mousePosition);
+	hitInfo = CS.UnityEngine.RaycastHit;
+
+	if(CS.UnityEngine.Input.GetMouseButtonDown(0)) then
+		local flag, hitInfo = CS.XLuaTest.RaycastTest.Raycast(inputRay, 1000);
+		if flag then
+			print(hitInfo.transform.name);
+		end
+	end
+end
+
+function ondestroy()
+end
+
+return EventTest;
