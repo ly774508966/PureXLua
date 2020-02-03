@@ -4,8 +4,6 @@ CtrlManager = {};
 local this = CtrlManager;
 local ctrlList = {};	--¿ØÖÆÆ÷ÁÐ±í--
 
---panelMgr = LuaHelper.GetPanelManager();
-
 function CtrlManager.Init()
 	--print("CtrlManager.Init----->>>");
 	ctrlList["LoginPanel"] = LoginPanel.New();

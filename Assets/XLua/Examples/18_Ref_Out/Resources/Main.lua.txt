@@ -1,0 +1,16 @@
+local cube = CS.UnityEngine.GameObject.Find('Cube');
+script = cube:AddComponent(typeof(CS.XLuaTest.LuaAdapter));
+script:LoadLua("CubeTest.lua", "CubeTest");
+
+--[[
+local DerivedClass = CS.MainClass;
+local myClass = DerivedClass()
+--print(myClass.name)--读取成员属性
+--myClass:TestRef()--成员方法
+
+--returnValue, strLength = myClass:CSharpMethod("Ocean");
+--print(returnValue, strLength); --5, nil
+
+returnVal, refVal = myClass:TestRef("Ocean", 10);
+print(returnVal, refVal); --函数返回值Ocean5, ref值5
+--]]

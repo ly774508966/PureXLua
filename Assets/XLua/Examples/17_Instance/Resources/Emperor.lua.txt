@@ -1,0 +1,42 @@
+Emperor = { name = "abc", age = 100 }
+local this = Emperor;
+
+function Emperor:new(o)
+    o = o or {}
+    setmetatable(o,self)
+    self.__index = self
+    return o
+end
+ 
+function Emperor:GetInstance()
+    if self.m_pEmperor == nil then
+        self.m_pEmperor = self:new()
+    end
+ 
+    return self.m_pEmperor
+end
+ 
+function Emperor:ReleaseInstance()
+	if self.m_pEmperor then
+		self.m_pEmperor = nil
+	end
+end
+ 
+function Emperor:EmperorInfo()
+	print("date", os.date("%X", os.time()))
+end
+
+--- main ---
+function Emperor:main()
+	pEmperor1 = Emperor:GetInstance();
+	pEmperor1:EmperorInfo();
+ 
+	pEmperor2 = Emperor:GetInstance();
+	pEmperor2:EmperorInfo();
+ 
+	if pEmperor1 == pEmperor2 then
+		print("the same");
+	end
+end
+
+return Emperor;

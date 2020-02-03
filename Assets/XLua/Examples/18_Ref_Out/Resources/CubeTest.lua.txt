@@ -1,0 +1,22 @@
+local target;
+local smoothTime = 0.3;
+local velocity = 1;
+
+local gameObject;
+local transform;
+local pos;
+
+function awake()
+	gameObject = self;
+	transform = self.transform;
+end
+
+function start()
+	target = CS.UnityEngine.GameObject.Find('Sphere').transform;
+	print("find : " .. target.name)
+end
+
+function update()
+	returnVal, velocity = CS.UnityEngine.Mathf.SmoothDamp(transform.position.x, target.position.x, velocity, smoothTime);
+	transform.position = CS.UnityEngine.Vector3(returnVal, 0, transform.position.z);
+end

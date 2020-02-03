@@ -1,0 +1,11 @@
+local emperor = require ('Emperor');
+
+function Test()
+	Emperor:GetInstance().name = "xyz";
+	print("Test: " .. Emperor:GetInstance().name);
+end
+
+function Test2()
+	print("Test2: " .. Emperor:GetInstance().name);
+end
+

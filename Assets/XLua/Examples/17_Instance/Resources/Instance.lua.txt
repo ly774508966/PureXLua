@@ -1,0 +1,27 @@
+--[[
+Main = {}
+local this = Main;
+function Init()
+	cube1 = CS.UnityEngine.GameObject("Cube1");
+	script1 = cube1:AddComponent(typeof(CS.XLuaTest.LuaBehaviour));
+	script1:LoadLua("Lua/LuaTestScript.lua", "LuaTestScript");
+	cube2 = CS.UnityEngine.GameObject("Cube2");
+	script = cube2:AddComponent(typeof(CS.XLuaTest.LuaBehaviour));
+	script:LoadLua("Lua/LuaTestScript2.lua", "LuaTestScript2");
+end
+Init();
+return Main;
+--]]
+
+local emperor = require ('Emperor');
+local other = require ('Other');
+
+function Start()
+	print("Start1: " .. Emperor:GetInstance().name);
+	Emperor:GetInstance().name = "abc";
+	print("Start2: " .. Emperor:GetInstance().name);
+end
+
+Test();
+Start();
+Test2();

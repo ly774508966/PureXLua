@@ -26,7 +26,10 @@ cmake -G "Visual Studio 16 2019" -A x64 ..
 ## 增加Example
 
 14. 增加AddBuildin第三方插件调用示例；
-15. CustomLoader；
+15. CustomLoader自定义Lua文件读取路径；
+16. LuaSocket使用；
+17. 单例模式；
+18. Lua中使用Ref/Out；
 
 ## 参加资料
 
