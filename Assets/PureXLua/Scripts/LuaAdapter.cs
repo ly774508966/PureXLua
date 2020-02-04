@@ -23,13 +23,13 @@ namespace XLuaTest
 
         private Action luaStart;
         private Action luaUpdate;
+        private Action<Collision> luaOnCollisionEnter;
         private Action luaOnDestroy;
 
         private LuaTable scriptEnv;
 
         void Awake()
         {
-            //Debug.Log("C#.Awake");
             luaEnv = Main.luaEnv;
             scriptEnv = luaEnv.NewTable();
 
@@ -42,7 +42,7 @@ namespace XLuaTest
 
         public void LoadLua(string fileName, string className = "")
         {
-            Debug.Log("LoadLua: " + className);
+            //Debug.Log("LoadLua: " + className);
 
             TextAsset luaScript = Resources.Load<TextAsset>(fileName);
 
@@ -52,6 +52,7 @@ namespace XLuaTest
             Action luaAwake = scriptEnv.Get<Action>("awake");
             scriptEnv.Get("start", out luaStart);
             scriptEnv.Get("update", out luaUpdate);
+            scriptEnv.Get("oncollisionenter", out luaOnCollisionEnter);
             scriptEnv.Get("ondestroy", out luaOnDestroy);
 
             if (luaAwake != null)
@@ -63,7 +64,6 @@ namespace XLuaTest
         // Use this for initialization
         void Start()
         {
-            //Debug.Log("C#.Start");
             if (luaStart != null)
             {
                 luaStart();
@@ -84,6 +84,15 @@ namespace XLuaTest
             }
         }
 
+        void OnCollisionEnter(Collision collision)
+        {
+            Debug.Log("C# " + collision.gameObject.name);
+            if (luaOnCollisionEnter != null)
+            {
+                luaOnCollisionEnter(collision);
+            }
+        }
+
         void OnDestroy()
         {
             if (luaOnDestroy != null)
@@ -91,6 +100,7 @@ namespace XLuaTest
                 luaOnDestroy();
             }
             luaOnDestroy = null;
+            luaOnCollisionEnter = null;
             luaUpdate = null;
             luaStart = null;
             scriptEnv.Dispose();

@@ -1,0 +1,22 @@
+local boxCol = nil
+
+function awake()
+	print("injected object", cube);
+	boxCol= cube:GetComponent(typeof(CS.UnityEngine.BoxCollider));
+	print(boxCol);
+	spCol= cube:GetComponent(typeof(CS.UnityEngine.SphereCollider));
+	print(spCol);
+end
+
+function start()
+	--SphereCollider是Unity的类型，要用null而不是nil判断
+	if(spCol ~= null) then
+		spCol.enabled = false;
+	end
+end
+
+function update()
+end
+
+function ondestroy()
+end
