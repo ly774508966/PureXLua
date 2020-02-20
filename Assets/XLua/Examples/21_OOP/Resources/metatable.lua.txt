@@ -1,0 +1,84 @@
+﻿
+--------------------------------------------------------------------
+--元表
+
+--[[
+Person = {}		--普通表
+metatable = {}	--元表
+
+--把metatable 设为Person的元表
+setmetatable(Person, metatable);
+
+--Person有了一个元表metatable
+print(getmetatable(Person))		--metatable
+
+--metatable没有元表
+print(getmetatable(metatable))	--nil
+--]]
+
+--------------------------------------------------------------------
+--元方法
+
+--[[
+--__index：当你通过键来访问 table 的时候，如果这个键没有值，那么Lua就会寻找该table的metatable（假定有metatable）中的__index 键。如果__index包含一个表格，Lua会在表格中查找相应的键。
+
+other = {foo = 3}
+--local t = setmetatable({},{__index = other})
+t = {}
+setmetatable(t,{__index = other})
+print(t.foo); --3  --t是空表，但包含了__index，对应的键可以返回 other表中元素
+print(t.bar); --nil
+
+
+table1 = {key1 = "value1"};
+table2 = {key2 = "metatablevalue"};
+mytable = setmetatable(table1, {__index = table2})
+print(mytable.key1, mytable.key2) --value1, metatablevalue
+--]]
+
+
+--[[
+--__newindex：用来对表更新，__index则用来对表访问。当你给表的一个缺少的索引赋值，解释器就会查找__newindex 元方法：如果存在则调用这个函数而不进行赋值操作。
+
+table1 = {key1= "value1"};
+mymetatable = {}
+mytable = setmetatable(table1,{__newindex = mymetatable})
+print(mytable.key1) --value1
+print(mytable.newKey) --nil
+
+mytable.newKey = "新值2"
+print(table1.newKey) --nil
+print(mytable.newKey, mymetatable.newKey) --nil  新值2 --因为调用了__newindex元方法，调用原来没键时，mytable.newKey没有进行赋值操作，而是执行了元方法。
+--]]
+
+
+--[[
+--运算符元方法
+table1 = {1, 2, 3};
+table2 = {10, 20};
+
+--__add元方法写的工具类
+local mt = {}
+mt.__add = function(tab1,tab2)
+    --print(tab1)
+    --print(tab2)
+    --return "abc";
+    t = {}
+    for k,v in pairs(tab1) do
+        table.insert(t, v);
+    end
+    for k,v in pairs(tab2) do
+        table.insert(t, v);
+    end
+    return t;
+end
+
+setmetatable(table1, mt);
+setmetatable(table2, mt);
+
+--最终实现两个表可以用运算符连接。用于写工具类。
+local result = table1 + table2;
+for k,v in pairs(result) do
+    print(k .. " : " .. v);
+end
+--]]

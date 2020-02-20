@@ -1,0 +1,66 @@
+Person = {
+	name = "df",
+	age = 1,
+} --类
+--Instance = {} --类的实例对象
+
+--------------------------------------------------------------------
+
+--关于self，是隐藏参数，在function中指向调用者自身
+--[[
+ --self在Person的函数内部才能使用
+function Person:Show()
+	print('name=' .. self.name);
+end
+Person:Show();
+
+function Hide()
+	print('age=' .. Person.age);
+end
+Hide();
+
+function Person.Create()
+	print('name=' .. Person.name .. ', age=' .. Person.age);
+end
+Person.Create();
+--]]
+
+--------------------------------------------------------------------
+
+--面向对象
+--setmetatable(instance, {__index = Person});
+
+--[[
+function Person:New(o)
+	local o = o or {}
+	setmetatable(o, self);
+	self.__index = self;
+	return o;
+end
+--]]
+--都行
+function Person:New();
+    local o = o or {};
+    setmetatable(o, {__index = self});	--self是Person，让创建出的o默认索引成为Person
+    return o;							--返回创建的新对象
+end
+
+function Person:PrintStr(str1, str2)
+	print(str1 .. " : " .. str2)
+end
+
+local test = Person:New()
+test:PrintStr("haha","lala");
+
+--------------------------------------------------------------------
+
+--继承
+local child = Person:New();
+function child:PrintStr2(str1,str2)
+	print(str1)
+	print(str2)
+end
+
+local sub = child:New();		--子类的实例化对象
+sub:PrintStr("hello","world");	--调用父类方法
+sub:PrintStr2("hello","world"); --调用子类方法
